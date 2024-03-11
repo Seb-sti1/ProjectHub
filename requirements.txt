@@ -1,2 +1,4 @@
-# use python3.11
+# use python3.10
 pdoc
+setuptools
+build
