@@ -1,4 +1,7 @@
 # use python3.10
+pydantic
+pydantic-settings
+
 pdoc
 setuptools
 build
