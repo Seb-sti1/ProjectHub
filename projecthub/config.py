@@ -5,12 +5,12 @@ import json
 #from getpass import getpass  # will be used to input tokens
 
 from pydantic import BaseModel, Field, field_validator
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 __all__ = ["Settings", "Config"]
 
 DEFAULT_CONFIG_FILE = Path("~/.config/projecthub/core.json")
-
+DOTENV_FILE = Path(__file__).with_name(".env")
 
 class _Settings(BaseSettings):
     """Automatically loads the settings from a `.env` file.
@@ -18,6 +18,8 @@ class _Settings(BaseSettings):
     This is designed to be a Singleton instance. 
     The settings are loaded once and can then be accessed using the Setting instance.
     """
+
+    model_config = SettingsConfigDict(env_file=DOTENV_FILE)
 
     # The Path does not necessary exists, use FilePath otherwise
     config_path: Path = Field(
