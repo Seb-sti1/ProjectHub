@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 #from getpass import getpass  # will be used to input tokens
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings
 
 __all__ = ["Settings", "Config"]
@@ -23,6 +23,15 @@ class _Settings(BaseSettings):
         description="The default path used to store the custom config file in a json format.",
         examples=[ Path("~/.config/projecthub/core.json") ],
     )
+
+    @field_validator("config_path")
+    @classmethod
+    def validate_config_path(cls: type[_Settings], path: Path) -> Path:
+        """Ensure that the path is not relative and expand the user if provided.
+        The path as to be a json file."""
+        if path.suffix != ".json":
+            raise ValueError("The config file has to be a json file.")
+        return path.expanduser().absolute()
 
 Settings = _Settings()
 
