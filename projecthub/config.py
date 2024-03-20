@@ -1,5 +1,7 @@
 from __future__ import annotations
+from typing import Optional
 from pathlib import Path
+import json
 #from getpass import getpass  # will be used to input tokens
 
 from pydantic import BaseModel, Field, field_validator
@@ -44,9 +46,15 @@ class _Config(BaseModel):
     The configurations are loaded once and can then be accessed using the Config instance.
     """
 
-    def __init__(self) -> None:
-        # TODO: load the configurations from the config file in kwargs if the file exists.
-        kwargs = {}
+    dummy_field: str = Field(
+        default="default value",
+        description="Just a dummy field for the example",
+        examples=["custom string"]
+    )
+
+    def __init__(self, config_file: Optional[Path]=None, **kwargs) -> None:
+        if config_file is not None and config_file.exists():
+            kwargs |= json.loads(config_file.read_text(encoding="utf-8"))
         super().__init__(**kwargs)
 
-Config = _Config()
+Config = _Config(Settings.config_path)
