@@ -30,6 +30,11 @@ class _Settings(BaseSettings):
         examples=[ Path("~/.config/projecthub/core.json") ],
     )
 
+    traceback: bool = Field(
+        default=True, alias="projecthub_traceback",
+        description="Whether to display the traceback along with the error message."
+    )
+
     @field_validator("config_path")
     @classmethod
     def validate_config_path(cls: type[_Settings], path: Path) -> Path:
@@ -66,3 +71,5 @@ class _Config(BaseModel):
         super().__init__(**kwargs)
 
 Config = _Config(Settings.config_path)
+
+print("config setup")
