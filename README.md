@@ -23,6 +23,13 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Usage
+
+Once the virtual environment has been activated, you can use the project without installing it by using the following command in the root directory:
+```bash
+python -m projecthub
+```
+
 ## Building
 
 To build the package you need to run
