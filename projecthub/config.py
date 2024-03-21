@@ -5,7 +5,7 @@ from pathlib import Path
 import json
 #from getpass import getpass  # will be used to input tokens
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 __all__ = ["Settings", "Config"]
@@ -50,6 +50,8 @@ class _Config(BaseModel):
     This is designed to be a Singleton instance. 
     The configurations are loaded once and can then be accessed using the Config instance.
     """
+
+    model_config = ConfigDict(validate_assignment=True, validate_default=True)
 
     dummy_field: str = Field(
         default="default value",
