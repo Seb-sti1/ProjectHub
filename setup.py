@@ -6,7 +6,7 @@ setup(
     python_requires='>=3.10',
     install_requires=[
         'pydantic',
-        'pdantic-settings'
+        'pydantic-settings'
     ],
     entry_points={
         'console_scripts': [
