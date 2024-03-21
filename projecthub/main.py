@@ -1,12 +1,10 @@
-import argparse
-
+from .parsers import parse_cmd
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--hello", required=False)
-    args = parser.parse_args()
+    args = parse_cmd()
 
-    if args.hello is not None:
-        print("Hello, World!")
-    else:
-        print("Not Hello, World!")
+    match args.cmd:
+        case "utils":
+            print("Hello, World!" if args.hello else "Not hello world!")
+        case _:
+            print("Please use a valid subcommand.")
