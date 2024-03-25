@@ -23,7 +23,7 @@ class _Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=DOTENV_FILE)
 
-    # The Path does not necessary exists, use FilePath otherwise
+    # The Path does not necessarily exists, use FilePath otherwise
     config_path: Path = Field(
         default=DEFAULT_CONFIG_FILE,
         description="The default path used to store the custom config file in a json format.",
