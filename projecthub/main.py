@@ -1,16 +1,13 @@
 import argparse
-from . import Config, Settings
+from .commands import config as cmd_config
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--hello", required=False)
+    sub_parsers = parser.add_subparsers(dest="cmd")
+    cmd_config.setup_parser(sub_parsers.add_parser("config"))
     args = parser.parse_args()
 
-    print("Settings:", Settings)
-    print("Config:", Config)
-
-    if args.hello is not None:
-        print("Hello, World!")
-    else:
-        print("Not Hello, World!")
+    match args.cmd:
+        case "config":
+            cmd_config.exec_cmd(args)
